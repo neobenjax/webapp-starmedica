@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="com.starmedica.app" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:gap="http://phonegap.com/ns/1.0">
+    <feature name="Camera">
+        <param name="browser-package" value="Camera" />
+    </feature>
+    <feature name="Device">
+        <param name="browser-package" value="Device" />
+    </feature>
+    <name>Starmedica</name>
+    <description>
+        Starmedica - La comunidad Médica de Mayor prestigio y alta eficiencia a tu servicio
+    </description>
+    <author email="info@codice.com" href="http://codice.com/">
+        Equipo de Códice
+    </author>
+    <content src="index.html" />
+    <icon src="icon.png" />
+    <access origin="*" />
+    <allow-intent href="tel:*" />
+    <allow-intent href="sms:*" />
+    <allow-intent href="mailto:*" />
+    <allow-intent href="geo:*" />
+    <allow-navigation href="*" />
+    <allow-navigation href="http://starmedica.codice.com/*" />
+    <preference name="DisallowOverscroll" value="true" />
+    <preference name="android-minSdkVersion" value="14" />
+    <preference name="orientation" value="portrait" />
+    <preference name="target-device" value="handset" />
+</widget>
