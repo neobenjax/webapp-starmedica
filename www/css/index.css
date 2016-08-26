@@ -323,7 +323,7 @@ input[type="checkbox"]:checked{
 
 
 div#contenido {
-    width: 100%!important;
+    width: 100vw!important;
     /*height: calc(100vh - 120px)!important;*/
     height: 100vh!important;
     z-index: 1;
