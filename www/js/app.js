@@ -62,6 +62,23 @@
         configFancy.content = $contenedorAlerta;
         
         $.fancybox(configFancy);
+    },
+    addContactSuccess : function (contact) {
+        
+        utiles.alerta({
+                        titulo:'Éxito',
+                        mensaje:'El contacto se ha agregado correctamente',
+                        btnOk:"Cerrar"
+                    });
+
+    },
+    addContactError : function (contactError) {
+
+        utiles.alerta({
+                        titulo:'Error',
+                        mensaje:'No se pudo guardar el contacto ('+contactError.code+')',
+                        btnOk:"Cerrar"
+                    });
     }
 
 };
@@ -304,14 +321,82 @@ var app = {
     },
     validarInteraccion: function(msg){
 
-        /*if (msg.data.type == "abrirMosaico")
+        if (msg.data.type == "shareProduct" )
         {
-            app.abrirMosaico(false);
+            app.shareProduct(msg.data.info);
         }
-        else if (msg.data.type == "putLogin")
+        else if (msg.data.type == "shareProductFB" )
         {
-            app.putLogin(msg.data.nombreUsuario);
-        }*/
+            app.shareProductFB(msg.data.info);
+        }
+        else if (msg.data.type == "addContact" )
+        {
+            app.addContact(msg.data.contactoInfo);
+        }
 
+    },
+    shareProduct:function(info){
+        console.log(info);
+        //DOC Plugin
+        //https://github.com/EddyVerbruggen/SocialSharing-PhoneGap-Plugin
+        //Limitaciones
+        //http://www.joshmorony.com/posting-to-a-facebook-wall-with-phonegap-the-javascript-sdk/
+        window.plugins.socialsharing.share(
+            info.mensaje, 
+            null, 
+            info.imagen, 
+            info.link);
+    },
+    shareProductFB:function(info){
+        console.log(info);
+        window.plugins.socialsharing.shareViaFacebook(
+            'Mensaje vía Facebook',
+            null /* img */,
+            info.link /* url */,
+            function() {console.log('share ok')},
+            function(errormsg){alert(errormsg)})
+    },
+    addContact:function(info){
+        var contacto = navigator.contacts.create({"displayName": info.nombre});
+
+        var nombreContacto = new ContactName();
+        nombreContacto.givenName = info.nombre;
+        nombreContacto.familyName = "";
+
+            contacto.name = nombreContacto;
+
+        var telefonos = [];
+        telefonos[0] = new ContactField('work', info.telefono, true);
+
+            contacto.phoneNumbers = telefonos;
+
+        contacto.note = "Contacto: Star Médica.";
+
+        var direcciones = [];
+        direcciones[0]= new ContactAddress({"pref": true});
+        direcciones[0].type = 'home';
+        direcciones[0].formatted = info.direccion;
+        direcciones[0].streetAddress = info.direccion;
+        direcciones[0].locality = info.hospital;
+        direcciones[0].region = info.hospital;
+        direcciones[0].postalCode = '00000';
+        direcciones[0].country = 'México';
+
+            contacto.addresses = direcciones;
+
+        contacto.save(utiles.addContactSuccess,utiles.addContactError);
+
+        console.log("El contacto, " + contacto.displayName + ", nota: " + contacto.note);
     }
 };
+
+//Comunicacion entre el iframe y esta app
+window.addEventListener("message", function(msg) {
+
+    app.validarInteraccion(msg);
+  
+});
+$(document).on('click','.cierreFancy',function(event){
+    event.preventDefault();
+    $.fancybox.close();
+});

@@ -13,9 +13,6 @@
         "cordova-plugin-camera": {
             "PACKAGE_NAME": "com.starmedica.app"
         },
-        "cordova-plugin-media-capture": {
-            "PACKAGE_NAME": "com.starmedica.app"
-        },
         "cordova-plugin-console": {
             "PACKAGE_NAME": "com.starmedica.app"
         },
@@ -47,6 +44,9 @@
             "PACKAGE_NAME": "com.starmedica.app"
         },
         "cordova-plugin-media": {
+            "PACKAGE_NAME": "com.starmedica.app"
+        },
+        "cordova-plugin-media-capture": {
             "PACKAGE_NAME": "com.starmedica.app"
         },
         "cordova-plugin-network-information": {

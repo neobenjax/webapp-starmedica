@@ -34,6 +34,9 @@
     <plugin name="cordova-plugin-whitelist" source="npm" spec="~1.2.1" />
     <icon src="icon.png" />
     <platform name="android">
+        <feature name="Contacts">
+            <param name="android-package" value="org.apache.cordova.contacts.ContactManager" />
+        </feature>
         <icon density="ldpi" src="www/res/icon/android/drawable-ldpi-icon.png" />
         <icon density="mdpi" src="www/res/icon/android/drawable-mdpi-icon.png" />
         <icon density="hdpi" src="www/res/icon/android/drawable-hdpi-icon.png" />
@@ -54,6 +57,9 @@
         <splash density="port-xxxhdpi" src="www/res/screen/android/drawable-port-xxxhdpi-screen.png" />
     </platform>
     <platform name="ios">
+        <feature name="Contacts">
+            <param name="ios-package" value="CDVContacts" />
+        </feature>
         <icon height="57" platform="ios" src="www/res/icon/ios/icon.png" width="57" />
         <icon height="114" platform="ios" src="www/res/icon/ios/icon@2x.png" width="114" />
         <icon height="40" platform="ios" src="www/res/icon/ios/icon-40.png" width="40" />
@@ -108,8 +114,10 @@
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
-    <allow-navigation href="*" />
+    <allow-intent href="fb:*" />
+    <allow-intent href="https://www.facebook.com/" />
     <allow-navigation href="http://starmedica.codice.com/*" />
+    <allow-navigation href="http://starmedica.com/*" />
     <platform name="android">
         <allow-intent href="http://*/*" />
         <allow-intent href="https://*/*" />
