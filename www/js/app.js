@@ -82,15 +82,18 @@
     }
 
 };
-
+liberacion = false;
 var source = document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1;
 if ( source ) {
     // PhoneGap application
-    source_route = 'http://starmedica.codice.com/';
+    source_route = (!liberacion)?'http://starmedica.codice.com/':'https://starmedica.com/';
 } else {
     // Web page
     source_route = 'http://localhost:81/StarMedica/';
 }
+
+if( (navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i)) || (navigator.userAgent.match(/iPad/i)) )
+    ios = true;
 
 intentos = 0,
 internetIntentos=0,
@@ -100,7 +103,7 @@ linkIntentos=0;
 var app = {
     version: 0,
     servicio : source_route+'webapp_service/index.php',
-    urlsitio : source_route+'movil/home/index',
+    urlsitio : source_route+'movil/home/app',
     // Application Constructor
     initialize: function() {
         this.bindEvents();
@@ -113,6 +116,7 @@ var app = {
         document.addEventListener('deviceready', this.onDeviceReady, false);
         document.addEventListener('online', this.checkConnection('online'), false);
         document.addEventListener("offline", this.checkConnection('offline'), false);
+        document.addEventListener("backbutton", onBackKeyDown, false);
     },
     // deviceready Event Handler
     //
@@ -137,8 +141,12 @@ var app = {
         }
     },
     onDeviceReady: function() {
-        if( (navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i)) || (navigator.userAgent.match(/iPad/i)) )
+
+
+        if( (navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i)) || (navigator.userAgent.match(/iPad/i)) ){
             StatusBar.overlaysWebView(false);
+            StatusBar.backgroundColor('#000000');
+        }
 
         var version = JSON.parse(localStorage.getItem('version'));
 
@@ -160,6 +168,7 @@ var app = {
             $('#injectedCSS').html(cssLocal);
         if(jsLocal!=null)
             $('#injectedJS').html(jsLocal);
+
 
 
         internet = app.checkConnection('onDeviceReady');
@@ -397,7 +406,65 @@ var app = {
     },
     openExternal:function(link){
         console.log(link);
-        window.open(link, "_system");
+        /*if (link.indexOf("facebook.com") > -1)
+        {
+            //facebook
+            if( ios )
+            {
+                appAvailability.check(
+                    'fb://', // URI Scheme
+                    function() {  // Success callback
+                        window.open(link.replace("https://www.facebook.com/", "fb://"), "_system");
+                    },
+                    function() {  // Error callback
+                        window.open(link, "_system");
+                    }
+                );
+            }
+            else
+            {
+                
+            }
+        }
+        else if (link.indexOf("twitter.com") > -1){
+            //twitter
+            if( ios )
+            {
+                appAvailability.check(
+                    'twitter://', // URI Scheme
+                    function() {  // Success callback
+                        window.open(link.replace("https://twitter.com/", "twitter://user?screen_name="), "_system");
+                    },
+                    function() {  // Error callback
+                        window.open(link, "_system");
+                    }
+                );
+            }
+            else
+            {
+                appAvailability.check(
+                    'com.twitter.android', // URI Scheme
+                    function() {  // Success callback
+                        window.open(link.replace("https://twitter.com/", "twitter://user?screen_name="), "_system");
+                    },
+                    function() {  // Error callback
+                        window.open(link, "_system");
+                    }
+                );
+            }
+        }
+        else if (link.indexOf("linkedin.com") > -1){
+            //linkedin
+        }
+        else if (link.indexOf("plus.google.com") > -1){
+            //Google Plus
+        }
+        else if (link.indexOf("pinterest.com") > -1){
+            //Google Plus
+        }
+        else {*/
+            window.open(link, "_system");
+        /*}*/
     }
 };
 
@@ -407,7 +474,12 @@ window.addEventListener("message", function(msg) {
     app.validarInteraccion(msg);
   
 });
+
 $(document).on('click','.cierreFancy',function(event){
     event.preventDefault();
     $.fancybox.close();
 });
+
+function onBackKeyDown(e) {
+  e.preventDefault();
+}
