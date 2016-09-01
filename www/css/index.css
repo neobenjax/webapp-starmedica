@@ -380,6 +380,7 @@ div#contenido iframe {
     color:#fff;
     font-size:14px;
     padding:5px 20px;
+    text-decoration:none;
 }
 .accionesConfirmLayer .preloader{
     width: 50px;
