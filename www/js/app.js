@@ -317,6 +317,7 @@ var app = {
 
         $('#mainPage').show();
         $('#contenidoSitio').attr('src',app.urlsitio);
+        
                 
     },
     validarInteraccion: function(msg){
@@ -333,6 +334,12 @@ var app = {
         {
             app.addContact(msg.data.contactoInfo);
         }
+        else if (msg.data.type == "openExternal" )
+        {
+            app.openExternal(msg.data.url);
+        }
+        
+        
 
     },
     shareProduct:function(info){
@@ -387,6 +394,10 @@ var app = {
         contacto.save(utiles.addContactSuccess,utiles.addContactError);
 
         console.log("El contacto, " + contacto.displayName + ", nota: " + contacto.note);
+    },
+    openExternal:function(link){
+        console.log(link);
+        window.open(link, "_system");
     }
 };
 
