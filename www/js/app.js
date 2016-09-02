@@ -45,7 +45,7 @@
         $accionesConfirm = $(document.createElement('div')).addClass('accionesConfirmLayer');
         
         if(btnOk!=false){
-            $boton = $(document.createElement('a')).addClass('cierreFancy').text(btnOk);
+            $boton = $(document.createElement('a')).addClass('cierreFancy').text(btnOk).attr('href','#');
             $accionesConfirm.append($boton);
         }
         
