@@ -145,7 +145,7 @@ var app = {
 
         if( (navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i)) || (navigator.userAgent.match(/iPad/i)) ){
             StatusBar.overlaysWebView(false);
-            StatusBar.backgroundColor('#000000');
+            
         }
 
         var version = JSON.parse(localStorage.getItem('version'));
