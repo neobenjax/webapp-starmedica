@@ -16,6 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+liberacion = true;
 
  var utiles = {
     
@@ -82,14 +83,16 @@
     }
 
 };
-liberacion = false;
+
 var source = document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1;
 if ( source ) {
     // PhoneGap application
-    source_route = (!liberacion)?'http://starmedica.codice.com/':'https://starmedica.com/';
+    source_route = (!liberacion)?'http://starmedica.codice.com/':'https://www.starmedica.com/';
+    sitioapp = source_route+'app/home/app';
 } else {
     // Web page
     source_route = 'http://localhost:81/StarMedica/';
+    sitioapp = source_route+'movil/home/app';
 }
 
 if( (navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i)) || (navigator.userAgent.match(/iPad/i)) )
@@ -103,7 +106,7 @@ linkIntentos=0;
 var app = {
     version: 0,
     servicio : source_route+'webapp_service/index.php',
-    urlsitio : source_route+'movil/home/app',
+    urlsitio : sitioapp,
     // Application Constructor
     initialize: function() {
         this.bindEvents();
