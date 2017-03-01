@@ -52,7 +52,7 @@
     font-weight: normal;
     font-style: normal;
 }
-html {overflow:hidden;width:100vw;}
+html {overflow:hidden;width:100vw;height:100%;}
 body {
     -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
     -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
@@ -820,6 +820,7 @@ div#mainContainer {
     width:100%;
     overflow:hidden;
     width:100vw;
+    height: 100%;
 }
 a.abrirMosaico{
     display:none;

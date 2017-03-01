@@ -51,7 +51,7 @@ liberacion = true;
         }
         
         if(params.preload){
-            $imgLoader = $(document.createElement('img')).addClass('preloader').attr('src','img/loading.gif');
+            $imgLoader = $(document.createElement('img')).addClass('preloader').attr('src','img/loading_update.gif');
             $accionesConfirm.append($imgLoader);
         }
         
@@ -94,7 +94,7 @@ if ( source ) {
     source_route = 'http://localhost:81/StarMedica/';
     sitioapp = source_route+'movil/home/app';
 }
-
+ios = false;
 if( (navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i)) || (navigator.userAgent.match(/iPad/i)) )
     ios = true;
 
@@ -136,47 +136,25 @@ var app = {
             
             console.log('Caller:' + caller);
             
-
-            if(!ios){
-                
-                var networkState = navigator.connection.type;
-                //var networkState = 'Connection.CELL';
-                
-                var states = {};
-                
-                states[Connection.UNKNOWN]  = {tipo:-1,lbl:'Conexión desconocida'};
-                states[Connection.ETHERNET] = {tipo:1,lbl:'Conexión ethernet'};
-                states[Connection.WIFI]     = {tipo:2,lbl:'Conexión Wifi'};
-                states[Connection.CELL_2G]  = {tipo:3,lbl:'2G'};
-                states[Connection.CELL_3G]  = {tipo:4,lbl:'3G'};
-                states[Connection.CELL_4G]  = {tipo:5,lbl:'4G'};
-                states[Connection.CELL]     = {tipo:6,lbl:'Celular Conexión Baja'};
-                states[Connection.NONE]     = {tipo:0,lbl:'Verifique su conexión a internet por favor!'};
-                
-                retorno = states[networkState];
-
-            } else {
-                
-                connectionState = {};
-                
-                var xhr = new XMLHttpRequest();
-                var file = app.servicio;
-                var r = Math.round(Math.random() * 10000);
-                xhr.open('HEAD', file + "?subins=" + r, false);
-                try {
-                    xhr.send();
-                    if (xhr.status >= 200 && xhr.status < 304) {
-                        connectionState = {tipo:-1,lbl:'Conexión desconocida'};
-                    } else {
-                        connectionState = {tipo:0,lbl:'Verifique su conexión a internet por favor!'};
-                    }
-                } catch (e) {
+            connectionState = {};
+            
+            var xhr = new XMLHttpRequest();
+            var file = app.servicio;
+            var r = Math.round(Math.random() * 10000);
+            xhr.open('HEAD', file + "?subins=" + r, false);
+            try {
+                xhr.send();
+                if (xhr.status >= 200 && xhr.status < 304) {
+                    connectionState = {tipo:-1,lbl:'Conexión desconocida'};
+                } else {
                     connectionState = {tipo:0,lbl:'Verifique su conexión a internet por favor!'};
                 }
-             
-                retorno = connectionState;
-                
+            } catch (e) {
+                connectionState = {tipo:0,lbl:'Verifique su conexión a internet por favor!'};
             }
+         
+            retorno = connectionState;
+            
             
             //return states[networkState];
             return retorno;
@@ -184,11 +162,6 @@ var app = {
     },
     onDeviceReady: function() {
 
-
-        if( (navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i)) || (navigator.userAgent.match(/iPad/i)) ){
-            //StatusBar.overlaysWebView(false);
-            
-        }
 
         var version = JSON.parse(localStorage.getItem('version'));
 
